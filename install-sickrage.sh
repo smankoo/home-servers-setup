@@ -1,5 +1,20 @@
-sudo apt-get install git-core python python-cheetah -y
-sudo apt install python-pip -y
+sudo apt-get install git python3 python-cheetah python3-pip -y
+
+PYTHON_BIN=`which python`
+PYTHON3_BIN=`which python3`
+
+if [ "${PYTHON_BIN}" != "" ] && [ "${PYTHON3_BIN}" != "" ] && [ -e "${PYTHON_BIN}" ]; then
+	if [ -e "${PYTHON3_BIN}" ]; then
+		if [ -L "${PYTHON_BIN}" ]; then
+			sudo rm "${PYTHON_BIN}"
+		elif [ -f "${PYTHON_BIN}" ]; then
+			sudo mv "${PYTHON_BIN}" "${PYTHON_BIN}".`date '+%Y-%m-%d_%H-%M-%S'`
+		fi
+		sudo ln -s "${PYTHON3_BIN}" "${PYTHON_BIN}"
+		echo "${PYTHON_BIN} now points to ${PYTHON3_BIN}"
+	fi
+fi
+ 
 
 USER=`whoami`
 cd ~
@@ -10,7 +25,7 @@ fi
 
 git clone https://github.com/sickrage/sickrage.git .sickrage
 
-pip install -r .sickrage/requirements.txt
+pip3 install -r .sickrage/requirements.txt
 
 if [ -f /etc/init.d/sickrage ]; then
     sudo rm /etc/init.d/sickrage
