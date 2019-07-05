@@ -9,17 +9,18 @@ AUTOREMOVE_SCRIPT_DEST_DIR="/scratch"
 USER=`whoami`
 
 if [ -f "${AUTOREMOVE_SCRIPT}" ]; then
+    AUTOREMOVE_SCRIPT_FILENAME=$(basename ${AUTOREMOVE_SCRIPT})
     if [ ! -d "${AUTOREMOVE_SCRIPT_DEST_DIR}" ]; then
         sudo mkdir -p ${AUTOREMOVE_SCRIPT_DEST_DIR}
         sudo chown ${USER}:${USER} ${AUTOREMOVE_SCRIPT_DEST_DIR} -R
         echo "Created script destination directory: ${AUTOREMOVE_SCRIPT_DEST_DIR}"
     fi
     if [ -d "${AUTOREMOVE_SCRIPT_DEST_DIR}" ]; then
-        if [ -f "${AUTOREMOVE_SCRIPT_DEST_DIR}/${AUTOREMOVE_SCRIPT}" ]; then
-            mv ${AUTOREMOVE_SCRIPT_DEST_DIR}/${AUTOREMOVE_SCRIPT} ${AUTOREMOVE_SCRIPT_DEST_DIR}/${AUTOREMOVE_SCRIPT}.`date '+%Y-%m-%d_%H-%M-%S'`
+        if [ -f "${AUTOREMOVE_SCRIPT_DEST_DIR}/${AUTOREMOVE_SCRIPT_FILENAME}" ]; then
+            mv ${AUTOREMOVE_SCRIPT_DEST_DIR}/${AUTOREMOVE_SCRIPT_FILENAME} ${AUTOREMOVE_SCRIPT_DEST_DIR}/${AUTOREMOVE_SCRIPT_FILENAME}.`date '+%Y-%m-%d_%H-%M-%S'`
         fi
         cp ${AUTOREMOVE_SCRIPT} ${AUTOREMOVE_SCRIPT_DEST_DIR}
-        echo "Copied transmission autoremove script ${AUTOREMOVE_SCRIPT} to ${AUTOREMOVE_SCRIPT_DEST_DIR}/${AUTOREMOVE_SCRIPT}"
+        echo "Copied transmission autoremove script ${AUTOREMOVE_SCRIPT} to ${AUTOREMOVE_SCRIPT_DEST_DIR}/${AUTOREMOVE_SCRIPT_FILENAME}"
     fi
 fi
 
