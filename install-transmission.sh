@@ -3,11 +3,32 @@ sudo apt install transmission-daemon -y
 daemon_status=`systemctl is-active transmission-daemon`
 
 SETTINGS_FILE="skel/transmission-settings.json"
+AUTOREMOVE_SCRIPT="skel/transmission-autoremove.sh"
+AUTOREMOVE_SCRIPT_DEST_DIR="/scratch"
+
+USER=`whoami`
+
+if [ -f "${AUTOREMOVE_SCRIPT}" ]; then
+    if [ ! -d "${AUTOREMOVE_SCRIPT_DEST_DIR}" ]; then
+        sudo mkdir -p ${AUTOREMOVE_SCRIPT_DEST_DIR}
+        sudo chown ${USER}:${USER} ${AUTOREMOVE_SCRIPT_DEST_DIR} -R
+        echo "Created script destination directory: ${AUTOREMOVE_SCRIPT_DEST_DIR}"
+    fi
+    if [ -d "${AUTOREMOVE_SCRIPT_DEST_DIR}" ]; then
+        if [ -f "${AUTOREMOVE_SCRIPT_DEST_DIR}/${AUTOREMOVE_SCRIPT}" ]; then
+            mv ${AUTOREMOVE_SCRIPT_DEST_DIR}/${AUTOREMOVE_SCRIPT} ${AUTOREMOVE_SCRIPT_DEST_DIR}/${AUTOREMOVE_SCRIPT}.`date '+%Y-%m-%d_%H-%M-%S'`
+        fi
+        cp ${AUTOREMOVE_SCRIPT} ${AUTOREMOVE_SCRIPT_DEST_DIR}
+        echo "Copied transmission autoremove script ${AUTOREMOVE_SCRIPT} to ${AUTOREMOVE_SCRIPT_DEST_DIR}/${AUTOREMOVE_SCRIPT}"
+    fi
+fi
 
 if [ "${daemon_status}" = "active" ]; then
     sudo service transmission-daemon stop
     echo "Transmission daemon stopped"
 fi
+
+
 
 if [ -f "${SETTINGS_FILE}" ]; then
     cat "${SETTINGS_FILE}" | sudo tee /etc/transmission-daemon/settings.json > /dev/null 2>&1
