@@ -34,3 +34,7 @@ read -p "Enter the password for viking: " USER_PASS
 echo "useradd -m -G sudo -s /bin/bash viking && echo -e '${USER_PASS}\n${USER_PASS}' | passwd viking" | pct enter ${CON_ID}
 echo "echo '0 3 * * * apt update && apt upgrade -y >/dev/null 2>&1 ' | crontab" | pct enter ${CON_ID}
 echo "apt-get update && apt-get upgrade -y" | pct enter ${CON_ID}
+
+# set the same timezone on container as the host
+HOST_TZ=`ls -l /etc/localtime | awk '{print $NF}'`
+echo "rm /etc/localtime && ln -s ${HOST_TZ} /etc/localtime" | pct enter ${CON_ID}
