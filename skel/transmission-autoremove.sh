@@ -28,7 +28,7 @@ do
     else
         # check torrents current state is STOPPED
         STATE_STOPPED=`transmission-remote $SERVER --torrent $TORRENTID --info | grep "State: Seeding\|Stopped\|Finished\|Idle"`
-        if [ !$STATE_STOPPED ]; then
+        if [ $? -ne 0 ]; then
             echo "Torrent not STOPPED. Moving on."
             continue
         else
