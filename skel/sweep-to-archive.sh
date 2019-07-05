@@ -7,7 +7,6 @@ DESTINATION_FREE_BUFFER_PERC=10 # amount of space (in percentage) to keep free o
 TIME_LIMIT_MIN=240 # Time (in minutes) for which the move process should be run. Set to 0 for no limit.
 
 
-
 START_TIME=$(date +%s)
 TIME_LIMIT_SEC=$((TIME_LIMIT_MIN * 60))
 TIME_ELAPSED_SEC=0
@@ -17,12 +16,21 @@ throw_error(){
     echo "ERROR: ${error_text}" >&2
 }
 
+
+running_count=`ps -ef | grep -v grep | grep -v $$ | grep sweep_to_archive.sh | wc -l`
+
+if [ ${running_count} -gt 0 ]; then
+    throw_error "Another instance of the script is already running"
+    throw_error "`ps -ef | grep -v grep | grep sweep_to_archive.sh`"
+    exit
+fi
+
 if [ ! -d ${SOURCE_DIR} ]; then
     throw_error "Specified source directory ${SOURCE_DIR} does not exist."
     exit
 fi
 
-ls -1 -rt ${SOURCE_DIR} | while read move_target
+ls -1 ${SOURCE_DIR} | while read move_target
 do
     move_target_abs=${SOURCE_DIR}/${move_target}
     df | awk '{print $6}' | grep -w "${ENSURE_MOUNTED}" >/dev/null 2>&1
