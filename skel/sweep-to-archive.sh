@@ -16,12 +16,13 @@ throw_error(){
     echo "ERROR: ${error_text}" >&2
 }
 
+parent_id=`ps -o ppid= -p $$`
 
-running_count=`ps -ef | grep -v grep | grep -v $$ | grep sweep_to_archive.sh | wc -l`
+running_count=`ps -ef | grep sweep_to_archive.sh | grep -v $$ | grep -v ${parent_id} | grep -v grep | wc -l`
 
 if [ ${running_count} -gt 0 ]; then
-    throw_error "Another instance of the script is already running"
-    throw_error "`ps -ef | grep -v grep | grep sweep_to_archive.sh`"
+    throw_error "Another instance of the script is already running. Current process id is: $$"
+    throw_error "`ps -ef | grep sweep_to_archive.sh | grep -v $$ | grep -v ${parent_id} | grep -v grep`"
     exit
 fi
 
