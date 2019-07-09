@@ -8,7 +8,7 @@ FSTAB_SKEL="skel/fstab"
 sudo cp /etc/fstab /etc/fstab.${dt}
 true | sudo tee /etc/fstab > /dev/null 2>&1
 
-grep . "${FSTAB_SKEL}" | sed 's/CIFS_PASS/'${CIFS_PASS}'/g' | while read row
+grep . "${FSTAB_SKEL}" | grep -v "#" | sed 's/CIFS_PASS/'${CIFS_PASS}'/g' | while read row
 do
     dir=`echo ${row} | awk '{print $2}'`
     echo "row is: ${row}"

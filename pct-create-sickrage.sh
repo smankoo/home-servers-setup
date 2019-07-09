@@ -25,6 +25,7 @@ pct create ${CON_ID} seagate:vztmpl/ubuntu-19.04-standard_19.04-1_amd64.tar.gz \
 --password viking       \
 --start                 \
 --storage local-zfs     \
+--features "fuse=1;nfs;cifs"       \
 --unprivileged 0
 
 pct start ${CON_ID}
