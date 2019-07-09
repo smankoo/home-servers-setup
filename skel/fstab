@@ -1,2 +1,4 @@
 //192.168.2.22/data /data  cifs  username=root,password=CIFS_PASS,uid=viking,gid=viking 0 2
-//192.168.2.5/seagate /seagate  cifs  username=pi,password=CIFS_PASS,uid=viking,gid=viking 0 0
+192.168.2.9:/volume1/movies /movies  nfs  defaults 0 2
+192.168.2.9:/volume1/tv /tv  nfs  defaults 0 2
+
