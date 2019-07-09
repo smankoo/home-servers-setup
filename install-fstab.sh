@@ -1,14 +1,14 @@
 sudo apt install nfs-common -y
 dt=`date '+(%d-%m-%Y_%H-%M-%S)'`
 
-read -p "Enter the password for file shares: " CIFS_PASS
+# read -p "Enter the password for file shares: " CIFS_PASS
 
 FSTAB_SKEL="skel/fstab"
 
 sudo cp /etc/fstab /etc/fstab.${dt}
 true | sudo tee /etc/fstab > /dev/null 2>&1
 
-grep . "${FSTAB_SKEL}" | grep -v "#" | sed 's/CIFS_PASS/'${CIFS_PASS}'/g' | while read row
+grep . "${FSTAB_SKEL}" | grep -v "#" | while read row
 do
     dir=`echo ${row} | awk '{print $2}'`
     echo "row is: ${row}"
