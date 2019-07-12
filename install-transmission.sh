@@ -4,7 +4,7 @@ daemon_status=`systemctl is-active transmission-daemon`
 
 SETTINGS_FILE="skel/transmission-settings.json"
 AUTOREMOVE_SCRIPT="skel/transmission-autoremove.sh"
-AUTOREMOVE_SCRIPT_DEST_DIR="/scratch"
+AUTOREMOVE_SCRIPT_DEST_DIR="/scripts"
 
 USER=`whoami`
 
