@@ -5,8 +5,8 @@ dt=`date '+%d-%m-%Y_%H-%M-%S'`
 
 FSTAB_SKEL="skel/fstab"
 
-if [ -f /etc/fstab.orig ]; then
-    cp /etc/fstab /etc/fstab.orig
+if [ ! -f /etc/fstab.orig ]; then
+    sudo cp /etc/fstab /etc/fstab.orig
 fi
 
 sudo cp /etc/fstab /etc/fstab.${dt}
