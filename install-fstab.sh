@@ -19,7 +19,16 @@ do
     dir=`echo ${row} | awk '{print $2}'`
     echo "row is: ${row}"
     echo "dir is: ${dir}"
-	sudo mkdir -p ${dir}
+
+    if [ ! -d "${dir}" ]; then
+	    sudo mkdir -p "${dir}"
+    fi
+
+    perms=`stat -c "%a" "${dir}"`
+    if [ $perms != 777 ]; then
+        sudo chmod 777 "${dir}" -R
+    fi
+    
     if [ $? -eq 0 ]; then
         echo "${row}" | sudo tee -a /etc/fstab > /dev/null 2>&1
         echo "Added: ${row}"
