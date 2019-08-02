@@ -10,7 +10,7 @@ if [ ! -f /etc/fstab.orig ]; then
 fi
 
 sudo cp /etc/fstab /etc/fstab.${dt}
-# true | sudo tee /etc/fstab > /dev/null 2>&1
+true | sudo tee /etc/fstab > /dev/null 2>&1
 
 sudo cp /etc/fstab.orig /etc/fstab
 

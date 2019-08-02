@@ -1,4 +1,5 @@
-192.168.2.9:/volume1/movies /movies  nfs  defaults 0 2
-192.168.2.9:/volume1/tv /tv  nfs  defaults 0 2
-192.168.2.9:/volume1/tv2 /tv2  nfs  defaults 0 2
-192.168.2.9:/volume1/scratch /scratch  nfs  defaults 0 2
+192.168.2.9:/volume1/movies /movies  nfs  defaults 0 0
+192.168.2.9:/volume1/tv /tv  nfs  defaults 0 0
+192.168.2.9:/volume1/tv2 /tv2  nfs  defaults 0 0
+192.168.2.9:/volume1/scratch /scratch  nfs  defaults 0 0
+192.168.2.9:/volume1/backups /backups  nfs  defaults 0 0
