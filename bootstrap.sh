@@ -1,3 +1,4 @@
+sudo timedatectl set-timezone America/Toronto
 sudo apt install git -y
 rm -rf ~/home-servers-setup
 git clone https://github.com/smankoo/home-servers-setup.git && \
