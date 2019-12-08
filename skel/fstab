@@ -3,3 +3,4 @@
 192.168.2.9:/volume1/tv2 /tv2  nfs  defaults 0 0
 192.168.2.9:/volume1/scratch /scratch  nfs  defaults 0 0
 192.168.2.9:/volume1/backups /backups  nfs  defaults 0 0
+192.168.2.9:/volume1/othervid /othervid nfs defaults 0 0
