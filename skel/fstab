@@ -4,4 +4,7 @@
 192.168.2.9:/volume1/scratch /scratch  nfs  defaults 0 0
 192.168.2.9:/volume1/backups /backups  nfs  defaults 0 0
 192.168.2.9:/volume1/othervid /othervid nfs defaults 0 0
+<<<<<<< HEAD
 192.168.2.9:/volume1/common /common nfs defaults 0 0
+=======
+>>>>>>> 4914fa7edfda987f9caaf20e5f1edaae78e2d645
